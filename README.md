@@ -11,10 +11,13 @@ For [A-Frame](https://aframe.io).
 
 #### post-message
 
+The sent data in the postMessage must be of the format `{type: '', data: {}}` . The type must correspond with the _type_ given in the components configuration.
+
 | Property | Description | Default Value |
 | -------- | ----------- | ------------- |
 | enabled | Check if too receive post message events | true |
 | event | Event name to be fired with the received object | _messagePosted_ |
+| type | The type name of the Post Message data to be check |  |
 
 #### url-parameter
 

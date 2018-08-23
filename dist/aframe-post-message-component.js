@@ -1,3 +1,9 @@
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(factory());
+}(this, (function () { 'use strict';
+
 /* global AFRAME */
 
 if (typeof AFRAME === 'undefined') {
@@ -87,3 +93,5 @@ AFRAME.registerComponent('post-message', {
       window.addEventListener('message', this.handlePostMessage); 
   }
 });
+
+})));

@@ -5,7 +5,7 @@
     <title>A-Frame Post State Component - Basic</title>
     <meta name="description" content="Basic example for Set State component."></meta>
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-    <script src="../../dist/aframe-post-state-component.min.js"></script>
+    <script src="../../dist/aframe-post-message-component.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
   <script src="https://unpkg.com/aframe-state-component@^3.0.0/dist/aframe-state-component.min.js"></script>
   <script>
@@ -28,7 +28,6 @@
     });
 
     function clickPostMessage() {
-      console.log('Post message clicked');
       const state = {"environment":{"preset":"volcano","seed": Math.ceil(Math.random() * 30),
         "ground":"hills"}}
       window.postMessage(state, '*');
@@ -39,7 +38,7 @@
     <div style="z-index: 1; position: absolute;">
       <span><button type="button" onclick="clickPostMessage()" >PostMessage: Set state!</button></span>
     </div>
-    <a-scene post-state='event: statePosted; urlParameter: state; postMessageEvent: state;' environment="preset: default" bind__environment="environment">
+    <a-scene post-message='event: statePosted; urlParameter: state; postMessageEvent: state;' environment="preset: default" bind__environment="environment">
     </a-scene>
 
     <!-- GitHub Corner. -->

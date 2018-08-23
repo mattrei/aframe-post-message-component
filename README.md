@@ -3,15 +3,26 @@
 [![Version](http://img.shields.io/npm/v/aframe-post-message-component.svg?style=flat-square)](https://npmjs.org/package/aframe-post-message-component)
 [![License](http://img.shields.io/npm/l/aframe-post-message-component.svg?style=flat-square)](https://npmjs.org/package/aframe-post-message-component)
 
-A simple component that reads a JSON object from the URL Parameters and from the _Post Message_ window and fires the object as an event to probably store it into as a state.
+A simple component that reads a JSON object from the _Post Message_ API or from the URL Parameters.
 
 For [A-Frame](https://aframe.io).
 
 ### API
 
+#### post-message
+
 | Property | Description | Default Value |
 | -------- | ----------- | ------------- |
-|          |             |               |
+| enabled | Check if too receive post message events | true |
+| event | Event name to be fired with the received object | _messagePosted_ |
+
+#### url-parameter
+
+| Property | Description | Default Value |
+| -------- | ----------- | ------------- |
+| enabled | Check if URL GET Parameters are enabled | true |
+| event | Event name to be fired with the received object | _messagePosted_ |
+| parameter | Query parameter key name to recognize message from | _message_ |
 
 ### Installation
 

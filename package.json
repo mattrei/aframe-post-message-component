@@ -1,6 +1,6 @@
 {
   "name": "aframe-post-message-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A post State component for A-Frame.",
   "main": "index.js",
   "unpkg": "dist/aframe-post-message-component.min.js",

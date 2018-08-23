@@ -30,7 +30,9 @@
     function clickPostMessage() {
       const state = {"environment":{"preset":"volcano","seed": Math.ceil(Math.random() * 30),
         "ground":"hills"}}
-      window.postMessage(state, '*');
+
+			const event = {type: 'aframe-state', data: state};
+      window.postMessage(event, '*');
     }
   </script>
   </head>
@@ -38,7 +40,7 @@
     <div style="z-index: 1; position: absolute;">
       <span><button type="button" onclick="clickPostMessage()" >PostMessage: Set state!</button></span>
     </div>
-    <a-scene post-message url-parameter environment="preset: default" bind__environment="environment">
+    <a-scene post-message='type: aframe-state' url-parameter environment="preset: default" bind__environment="environment">
     </a-scene>
 
     <!-- GitHub Corner. -->

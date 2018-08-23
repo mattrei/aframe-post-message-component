@@ -20,17 +20,14 @@ AFRAME.registerComponent('post-message', {
     },
     urlParameter: {
       default: ''
-    }
+    },
+		type: {
+			default: ''
+		}
   },
 
-  /**
-   * Set if component needs multiple instancing.
-   */
-  multiple: false,
+  multiple: true,
 
-  /**
-   * Called once when component is attached. Generally for initial setup.
-   */
   init: function () {
     const el = this.el;
     const data = this.data;
@@ -50,38 +47,23 @@ AFRAME.registerComponent('post-message', {
   },
 
   handlePostMessage: function (evt) {
-    this.el.emit(this.data.event, evt.data);
+		const data = this.data;
+
+		if (evt.data.hasOwnProperty('type') && evt.data.hasOwnProperty('data')
+			&& evt.data.type === data.type) {
+			
+			this.el.emit(data.event, evt.data.data);
+		}
   },
 
-  /**
-   * Called when component is attached and when component data changes.
-   * Generally modifies the entity based on the data.
-   */
-  update: function (oldData) { },
+  remove: function () { 
+    window.removeEventListener('message', this.handlePostMessage);
+	},
 
-  /**
-   * Called when a component is removed (e.g., via removeAttribute).
-   * Generally undoes all modifications to the entity.
-   */
-  remove: function () { },
-
-  /**
-   * Called on each scene tick.
-   */
-  // tick: function (t) { },
-
-  /**
-   * Called when entity pauses.
-   * Use to stop or remove any dynamic or background behavior such as events.
-   */
   pause: function () {
     window.removeEventListener('message', this.handlePostMessage);
   },
 
-  /**
-   * Called when entity resumes.
-   * Use to continue or add any dynamic or background behavior such as events.
-   */
   play: function () {
     window.addEventListener('message', this.handlePostMessage);
   }
@@ -100,6 +82,8 @@ AFRAME.registerComponent('url-parameter', {
       default: 'message'
     }
   },
+
+  multiple: true,
 
   init: function () {
     const el = this.el;

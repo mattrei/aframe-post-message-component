@@ -11,7 +11,7 @@ const getUrlParameter = AFRAME.utils.getUrlParameter;
  */
 AFRAME.registerComponent('post-message', {
   schema: {
-    postMessageEvent: {
+    enabled: {
       default: true,
       type: 'boolean'
     },
@@ -37,7 +37,7 @@ AFRAME.registerComponent('post-message', {
 
     this.handlePostMessage = this.handlePostMessage.bind(this);
 
-    if (data.postMessageEvent) {
+    if (data.enabled) {
       window.addEventListener('message', this.handlePostMessage); 
     }
 

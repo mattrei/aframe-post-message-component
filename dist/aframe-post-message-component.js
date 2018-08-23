@@ -21,11 +21,11 @@ AFRAME.registerComponent('post-message', {
       default: true,
       type: 'boolean'
     },
-    urlParameter: {
-      default: 'state'
-    },
     event: {
-      default: 'statePosted'
+      default: 'messagePosted'
+    },
+    urlParameter: {
+      default: ''
     }
   },
 
@@ -44,7 +44,7 @@ AFRAME.registerComponent('post-message', {
     this.handlePostMessage = this.handlePostMessage.bind(this);
 
     if (data.enabled) {
-      window.addEventListener('message', this.handlePostMessage); 
+      window.addEventListener('message', this.handlePostMessage);
     }
 
     if (data.urlParameter) {
@@ -56,8 +56,7 @@ AFRAME.registerComponent('post-message', {
   },
 
   handlePostMessage: function (evt) {
-
-        this.el.emit(this.data.event, evt.data);
+    this.el.emit(this.data.event, evt.data);
   },
 
   /**
@@ -81,16 +80,43 @@ AFRAME.registerComponent('post-message', {
    * Called when entity pauses.
    * Use to stop or remove any dynamic or background behavior such as events.
    */
-  pause: function () { 
-      window.removeEventListener('message', this.handlePostMessage); 
+  pause: function () {
+    window.removeEventListener('message', this.handlePostMessage);
   },
 
   /**
    * Called when entity resumes.
    * Use to continue or add any dynamic or background behavior such as events.
    */
-  play: function () { 
-      window.addEventListener('message', this.handlePostMessage); 
+  play: function () {
+    window.addEventListener('message', this.handlePostMessage);
+  }
+});
+
+AFRAME.registerComponent('url-parameter', {
+  schema: {
+    enabled: {
+      default: true,
+      type: 'boolean'
+    },
+    event: {
+      default: 'messagePosted'
+    },
+    parameter: {
+      default: 'message'
+    }
+  },
+
+  init: function () {
+    const el = this.el;
+    const data = this.data;
+
+    if (data.enabled && data.parameter) {
+      const detail = getUrlParameter(data.parameter);
+      if (detail) {
+        el.emit(data.event, JSON.parse(detail));
+      }
+    }
   }
 });
 

@@ -18,9 +18,6 @@ AFRAME.registerComponent('post-message', {
     event: {
       default: 'messagePosted'
     },
-    urlParameter: {
-      default: ''
-    },
 		type: {
 			default: ''
 		}
@@ -36,13 +33,6 @@ AFRAME.registerComponent('post-message', {
 
     if (data.enabled) {
       window.addEventListener('message', this.handlePostMessage);
-    }
-
-    if (data.urlParameter) {
-      const detail = getUrlParameter(data.urlParameter);
-      if (detail) {
-        el.emit(data.event, JSON.parse(detail));
-      }
     }
   },
 

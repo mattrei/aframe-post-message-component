@@ -23,6 +23,10 @@
           console.log('setting state', action)
           state = AFRAME.utils.extendDeep(state, action);
           console.log(state)
+        },
+        customEvent: function (state, action) {
+          console.log("received custom event with", action);
+          state = AFRAME.utils.extendDeep(state, action);
         }
       },
     });
@@ -31,7 +35,7 @@
       const state = {"environment":{"preset":"volcano","seed": Math.ceil(Math.random() * 30),
         "ground":"hills"}}
 
-			const event = {type: 'aframe-state', data: state};
+			const event = {type: 'aframe-state', event: 'customEvent', data: state};
       window.postMessage(event, '*');
     }
   </script>

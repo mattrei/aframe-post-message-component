@@ -15,12 +15,12 @@ AFRAME.registerComponent('post-message', {
       default: true,
       type: 'boolean'
     },
-    event: {
+    defaultEvent: {
       default: 'messagePosted'
     },
-		type: {
-			default: ''
-		}
+    type: {
+      default: ''
+    }
   },
 
   multiple: true,
@@ -37,18 +37,20 @@ AFRAME.registerComponent('post-message', {
   },
 
   handlePostMessage: function (evt) {
-		const data = this.data;
-
-		if (evt.data.hasOwnProperty('type') && evt.data.hasOwnProperty('data')
-			&& evt.data.type === data.type) {
-			
-			this.el.emit(data.event, evt.data.data);
-		}
+    if (evt.data.hasOwnProperty('type') && evt.data.type === this.data.type) {
+      const data = evt.data.hasOwnProperty('data') ? evt.data.data : {};
+      if (evt.data.hasOwnProperty('event')) {
+	// call own event name
+        this.el.emit(evt.data.event, data);
+      } else {
+        this.el.emit(this.data.defaultEvent, data);
+      }
+    }
   },
 
-  remove: function () { 
+  remove: function () {
     window.removeEventListener('message', this.handlePostMessage);
-	},
+											},
 
   pause: function () {
     window.removeEventListener('message', this.handlePostMessage);
@@ -65,7 +67,7 @@ AFRAME.registerComponent('url-parameter', {
       default: true,
       type: 'boolean'
     },
-    event: {
+    defaultEvent: {
       default: 'messagePosted'
     },
     parameter: {
@@ -77,12 +79,17 @@ AFRAME.registerComponent('url-parameter', {
 
   init: function () {
     const el = this.el;
-    const data = this.data;
 
-    if (data.enabled && data.parameter) {
-      const detail = getUrlParameter(data.parameter);
+    if (this.data.enabled && this.data.parameter) {
+      const detail = getUrlParameter(this.data.parameter);
       if (detail) {
-        el.emit(data.event, JSON.parse(detail));
+	const message = JSON.parse(detail);
+	const data = evt.data.hasOwnProperty('data') ? evt.data.data : {};
+	if (message.hasOwnProperty('event')) {
+          el.emit(message.event, data);
+	} else {
+          el.emit(this.data.defaultEvent, data);
+	}
       }
     }
   }

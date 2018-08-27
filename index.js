@@ -78,6 +78,17 @@ AFRAME.registerComponent('url-parameter', {
   multiple: true,
 
   init: function () {
+
+    this.handleParameter = this.handleParameter.bind(this);
+
+    if (this.el.hasLoaded) {
+      this.handleParameter();
+    } else {
+      this.el.addEventListener('loaded', this.handleParameter);
+    }
+  },
+
+  handleParameter: function() {
     const el = this.el;
 
     if (this.data.enabled && this.data.parameter) {

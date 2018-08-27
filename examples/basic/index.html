@@ -21,7 +21,7 @@
       handlers: {
         messagePosted: function (state, action) {
           console.log('setting state', action)
-          state = AFRAME.utils.extendDeep(state, action);
+          AFRAME.utils.extendDeep(state, action);
           console.log(state)
         },
         customEvent: function (state, action) {

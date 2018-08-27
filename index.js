@@ -84,7 +84,7 @@ AFRAME.registerComponent('url-parameter', {
       const detail = getUrlParameter(this.data.parameter);
       if (detail) {
 	const message = JSON.parse(detail);
-	const data = evt.data.hasOwnProperty('data') ? evt.data.data : {};
+	const data = message.hasOwnProperty('data') ? message.data : {};
 	if (message.hasOwnProperty('event')) {
           el.emit(message.event, data);
 	} else {

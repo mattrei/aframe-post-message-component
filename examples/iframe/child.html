@@ -8,43 +8,9 @@
     <script src="../../dist/aframe-post-message-component.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
   <script src="https://unpkg.com/aframe-state-component@^3.0.0/dist/aframe-state-component.min.js"></script>
-  <script>
-    AFRAME.registerState({
-      initialState: {
-        environment: {
-          preset: 'forest',
-          seed: 1,
-          ground: 'canyon',
-        }
-      },
-
-      handlers: {
-        messagePosted: function (state, action) {
-          console.log('setting state', action)
-          AFRAME.utils.extendDeep(state, action);
-          console.log(state)
-        },
-        customEvent: function (state, action) {
-          console.log("received custom event with", action);
-          state = AFRAME.utils.extendDeep(state, action);
-        }
-      },
-    });
-
-    function clickPostMessage() {
-      const state = {"environment":{"preset":"volcano","seed": Math.ceil(Math.random() * 30),
-        "ground":"hills"}}
-
-			const event = {type: 'aframe-state', event: 'customEvent', data: state};
-      window.postMessage(event, '*');
-    }
-  </script>
   </head>
   <body>
-    <div style="z-index: 1; position: absolute;">
-      <span><button type="button" onclick="clickPostMessage()" >PostMessage: Set state!</button></span>
-    </div>
-    <a-scene listen-message='type: aframe-state' url-parameter environment="preset: default" bind__environment="environment">
+    <a-scene post-message='type: aframe-scene' environment="preset: default" bind__environment="environment">
     </a-scene>
 
     <!-- GitHub Corner. -->

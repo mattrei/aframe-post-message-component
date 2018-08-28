@@ -5,11 +5,53 @@ if (typeof AFRAME === 'undefined') {
 }
 
 const getUrlParameter = AFRAME.utils.getUrlParameter;
-
-/**
- * Post State component for A-Frame.
- */
 AFRAME.registerComponent('post-message', {
+  schema: {
+    enabled: {
+      default: true,
+      type: 'boolean'
+    },
+    event: {
+      default: 'loaded'
+    },
+    type: {
+      default: 'aframe-scene'
+    }
+  },
+
+  multiple: true,
+
+  init: function () {
+    const el = this.el;
+    const data = this.data;
+
+    this.handleEvent = this.handleEvent.bind(this);
+
+    if (data.enabled) {
+      el.addEventListener(data.event, this.handleEvent);
+    }
+  },
+
+  handleEvent: function(e) {
+    const sourceUrl = document.referrer;
+    const msg = {
+      type: this.data.type, 
+      event: e.type,
+      data: e.detail
+    };
+
+    if (this.data.enabled) {
+      window.parent.postMessage(msg, sourceUrl);
+    }
+
+  },
+
+  remove: function() {
+    this.el.removeEventListener(data.event, this.handleEvent);
+  }
+})
+
+AFRAME.registerComponent('listen-message', {
   schema: {
     enabled: {
       default: true,

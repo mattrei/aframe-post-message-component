@@ -1,7 +1,7 @@
 {
   "name": "aframe-post-message-component",
-  "version": "1.1.2",
-  "description": "A postMessage component for A-Frame.",
+  "version": "2.0.0",
+  "description": "An optionated postMessage component for A-Frame.",
   "main": "index.js",
   "unpkg": "dist/aframe-post-message-component.min.js",
   "scripts": {

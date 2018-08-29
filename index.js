@@ -8,7 +8,7 @@ const getUrlParameter = AFRAME.utils.getUrlParameter;
 AFRAME.registerComponent('post-message', {
   schema: {
     enabled: {
-      default: true,
+      default: AFRAME.utils.isIframed(),
       type: 'boolean'
     },
     event: {
@@ -25,6 +25,7 @@ AFRAME.registerComponent('post-message', {
     const el = this.el;
     const data = this.data;
 
+
     this.handleEvent = this.handleEvent.bind(this);
 
     if (data.enabled) {
@@ -40,7 +41,7 @@ AFRAME.registerComponent('post-message', {
       data: e.detail
     };
 
-    if (this.data.enabled) {
+    if (this.data.enabled && window.parent) {
       window.parent.postMessage(msg, sourceUrl);
     }
 
@@ -70,7 +71,6 @@ AFRAME.registerComponent('listen-message', {
   init: function () {
     const el = this.el;
     const data = this.data;
-
     this.handlePostMessage = this.handlePostMessage.bind(this);
 
     if (data.enabled) {

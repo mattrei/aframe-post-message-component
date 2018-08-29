@@ -11,13 +11,13 @@ For [A-Frame](https://aframe.io).
 
 #### post-message
 
-This component listes to events from the element and redirects the event detail via postMessage to its parent window. The format of the data is `{type: '', event: '', data: {}}`. The _type_ property must correspond with the _type_ given in the components configuration.
+This component listes to events from the element and redirects the event detail via postMessage to its parent window. So it only works if the whole A-Frame scene is embedded within an IFrame. The format of the posted message is `{type: '', event: '', data: {}}`, where the _type_ property is the _type_ and the _event_ as in the schema and the _data_ is the events detail object.
 
 | Property | Description | Default Value |
 | -------- | ----------- | ------------- |
-| enabled | Listen to postMessage events | true |
-| type | The type name of the Post Message data to be check |  |
-| event | Event name to be fired when the received postMessage has no _event_ property | _messagePosted_ |
+| enabled | Listen to events and send data as a post message to its parent window | `AFRAME.utils.isIframed` |
+| type | The type name of the post message for the parent to identify |  |
+| event | Event name to listen and redirect as a post message | _loaded_ |
 
 
 #### listen-message
